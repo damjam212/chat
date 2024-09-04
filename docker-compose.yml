@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  front:
+    build: ./public
+    ports:
+      - "3000:3000"
+    environment:
+      - REACT_APP_API_URL=http://localhost:5000/api
+      - MONGO_URL=mongodb://mongo:27017/chat  # Dodaj zmienną MONGO_URL, jeśli jest potrzebna w frontendzie
+    depends_on:
+      - api
+      - mongo
+
+  api:
+    build: ./server
+    ports:
+      - "5000:5000"
+    environment:
+      - MONGO_URL=mongodb://mongo:27017/chat
+    depends_on:
+      - mongo
+
+
