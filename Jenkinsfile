@@ -46,12 +46,11 @@ pipeline {
         stage('Login to ECR') {
             steps {
                 script {
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-key']]) {
                         // Wyświetlenie zmiennych środowiskowych
                         sh 'env'
                         // Sprawdzenie tożsamości
                         sh 'aws sts get-caller-identity'
-                    }
+                    
                 }
             }
         }
