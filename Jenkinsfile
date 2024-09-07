@@ -58,7 +58,7 @@ pipeline {
             steps {
                 script {
                     // Użycie poświadczeń AWS do wypchnięcia obrazu do ECR
-
+                        sh 'aws ecr get-login-password | docker login --username AWS --password-stdin 035209886637.dkr.ecr.us-east-1.amazonaws.com'
                         docker.image("${ECR_REGISTRY}/${ECR_REPO}:${IMAGE_TAG}").push("${IMAGE_TAG}")
                 }
             }
