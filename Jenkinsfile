@@ -32,28 +32,14 @@ pipeline {
                 }
             }
         }
-        stage('Check aws') {
-            steps {
-                script {
-                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-key']]) {
-                        container('aws-cli') {
-                            // Wyświetlenie zmiennych środowiskowych (przydatne do debugowania)
-                            sh 'env'
-
-                            // Sprawdzenie tożsamości
-                            sh 'aws sts get-caller-identity'
-                        }
-                    }
-                }
-            }
-        }
         stage('Login to ECR') {
             steps {
                 script {
-                    // Logowanie do ECR za pomocą poświadczeń AWS
-                    withAWS(credentials: 'aws-key', region: "${AWS_REGION}") {
-                        def loginCommand = sh(script: "aws ecr get-login-password --region ${AWS_REGION}", returnStdout: true).trim()
-                        sh "docker login -u AWS -p ${loginCommand} ${ECR_REGISTRY}"
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-key']]) {
+                        // Wyświetlenie zmiennych środowiskowych
+                        sh 'env'
+                        // Sprawdzenie tożsamości
+                        sh 'aws sts get-caller-identity'
                     }
                 }
             }
