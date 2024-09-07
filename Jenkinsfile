@@ -37,6 +37,7 @@ pipeline {
             steps {
                 script {
                     withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-key']]) {
+                        sh 'cat ~/.aws/credentials'
                         sh 'echo AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID'
                         sh 'echo AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY'
                     }
