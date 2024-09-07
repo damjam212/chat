@@ -50,7 +50,7 @@ pipeline {
                         // Wyświetlenie zmiennych środowiskowych
                         sh 'env'
                         // Sprawdzenie tożsamości
-                        sh 'aws sts get-caller-identity'
+                        sh 'aws sts get-caller-identity --aws-session-token IQoJb3JpZ2luX2VjEAUaCXVzLXdlc3QtMiJIMEYCIQCPa2tlfaysbVstxa6feLrbqcxLnfZbrl8TgPLEFTAU4wIhAKvUMR5BZaAMIhIN'
                     }
                 }
             }
