@@ -32,6 +32,20 @@ pipeline {
                 }
             }
         }
+        stage('Check aws') {
+            steps {
+                script {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-key']]) {
+                        container('aws-cli') {
+                            // Wyświetlenie zmiennych środowiskowych (przydatne do debugowania)
+                            sh 'env'
+
+                            // Sprawdzenie tożsamości
+                            sh 'aws sts get-caller-identity'
+                        }
+                    }
+                }
+            }
         stage('Login to ECR') {
             steps {
                 script {
