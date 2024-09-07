@@ -32,6 +32,16 @@ pipeline {
                 }
             }
         }
+        stage('Debug AWS Credentials') {
+            steps {
+                script {
+                    withCredentials([[$class: 'AmazonWebServicesCredentialsBinding', credentialsId: 'aws-key']]) {
+                        sh 'echo AWS_ACCESS_KEY_ID=$AWS_ACCESS_KEY_ID'
+                        sh 'echo AWS_SECRET_ACCESS_KEY=$AWS_SECRET_ACCESS_KEY'
+                    }
+                }
+            }
+        }
         stage('Login to ECR') {
             steps {
                 script {
