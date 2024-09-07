@@ -58,9 +58,8 @@ pipeline {
             steps {
                 script {
                     // Użycie poświadczeń AWS do wypchnięcia obrazu do ECR
-                    docker.withRegistry("https://${ECR_REGISTRY}", 'aws-key') {
+
                         docker.image("${ECR_REGISTRY}/${ECR_REPO}:${IMAGE_TAG}").push("${IMAGE_TAG}")
-                    }
                 }
             }
         }
